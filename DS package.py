@@ -3,8 +3,8 @@
 class node:
     def __init__(self,data):
         self.data=data
-        self.next=None
-        self.prev=None
+        self.next=None  # points to the next node
+        self.prev=None  # points to the previous node
     
 class linckedlist:
     def __init__(self):
@@ -97,7 +97,111 @@ class linckedlist:
         ''' it will print the linkedlist from head to tail '''
         x=self.head
         while x:
-            print(x.data.end=' ')
+            print(x.data,end=' ')
             x=x.next
     
+################################
+
+############# BST ############
+
+# making the bst's node
+class nodee:
+    def __init__(self,data):
+        self.data=data
+        self.parent=None # points to the parent of a node
+        self.l=None  # points to the left child
+        self.r=None  # points to the right child
+
+# making the bst class
+class BST:
+    def __init__(self):
+        self.root=None  # the root of our tree
+    # inserting a value to our tree   
+    def insert(self,val):
+        ''' inserts the value to the tree '''
+        x=self.root
+        y=nodee(val)
+        while True:
+            if x.data>= val :
+                if x.l:
+                    x=x.l
+                else:
+                    x.l=y
+                    y.parent=x
+                    break
+            else:
+                if x.r:
+                    x=x.r
+                else:
+                    x.r=y
+                    y.parent=x
+                    break
+    # searchs for a value and if the value is in tree , returns True and else returns False
+    def is_in_tree(self,val):
+        ''' if val in tree :
+                returns True
+            else:
+                returns False 
+        '''
+        x=self.root
+        while x.data!= val:
+            if val>x.data:
+                x=x.r
+            else:
+                x=x.l
+            if not x:
+                return False
+        return True
+    
+    # a function to replace a nodde with it's child
+    def _replace(self,nodde,child):
+        if not nodde.parent:  # nodde is the root of the tree
+            self.root=child
+        elif nodde.parent.l==nodde: # nodde is the left child of it's parent
+            nodde.parent.l=child
+        else:                       # nodde is the right child of it's parent
+            nodde.parent.r=child
+        child.parent=nodde.parent   # changing the parent of child
+    
+    # deleting a node
+    def delete(self,nodde):
+        ''' deletes nodde from your tree '''
+        if  not nodde.r:
+            self._replace(nodde,nodde.l)
+        elif not nodde.l :
+            self._replace(nodde,nodde.r)
+        else:
+            x=node.l
+            while  x.r :
+                x=x.r
+            nodde.data=x.data
+            self.delete(x)
+
+    # printing in-order traversal of the tree starting from node x
+    def in_order(self,x=self.root):
+        ''' it prints in-order traversal of the tree , starting from node x '''
+        if not x:
+            return
+        self.in_order(x.l)
+        print(x.data)
+        self.in_order(x.r)
+    
+    # printing pre-order traversal of the tree starting from node x
+    def pre_order(self,x=self.root):
+        ''' it prints pre-order traversal of the tree , starting from node x '''
+        if not x:
+            return
+        print(x.data)
+        self.pre_order(x.l)
+        self.pre_order(x.r)
+    
+    # printing post-order traversal of the tree starting from node x
+    def post_order(self,x=self.root):
+        ''' it prints post-order traversal of the tree , starting from node x '''
+        if not x:
+            return
+        self.post_order(x.l)
+        self.post_order(x.r)
+        print(x.data)
+
     
