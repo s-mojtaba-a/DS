@@ -119,6 +119,9 @@ class BST:
     # inserting a value to our tree   
     def insert(self,val):
         ''' inserts the value to the tree '''
+        if not self.root:
+            self.root=nodee(val)
+            return
         x=self.root
         y=nodee(val)
         while True:
@@ -143,6 +146,8 @@ class BST:
             else:
                 returns False 
         '''
+        if not self.root:
+            return False
         x=self.root
         while x.data!= val:
             if val>x.data:
@@ -178,30 +183,57 @@ class BST:
             self.delete(x)
 
     # printing in-order traversal of the tree starting from node x
-    def in_order(self,x=self.root):
-        ''' it prints in-order traversal of the tree , starting from node x '''
+    def in_order(self,x):
+        ''' it prints in-order traversal of the tree , starting from node x 
+
+            if x = self.root , it will give you in-order traversal of the whole tree
+        '''
         if not x:
             return
         self.in_order(x.l)
-        print(x.data)
+        print(x.data,end=' ')
         self.in_order(x.r)
     
     # printing pre-order traversal of the tree starting from node x
-    def pre_order(self,x=self.root):
-        ''' it prints pre-order traversal of the tree , starting from node x '''
+    def pre_order(self,x):
+        ''' it prints pre-order traversal of the tree , starting from node x 
+        
+            if x = self.root , it will give you pre-order traversal of the whole tree
+        '''
         if not x:
             return
-        print(x.data)
+        print(x.data,end=' ')
         self.pre_order(x.l)
         self.pre_order(x.r)
     
     # printing post-order traversal of the tree starting from node x
-    def post_order(self,x=self.root):
-        ''' it prints post-order traversal of the tree , starting from node x '''
+    def post_order(self,x):
+        ''' it prints post-order traversal of the tree , starting from node x 
+        
+            if x = self.root , it will give you post-order traversal of the whole tree
+        '''
         if not x:
             return
         self.post_order(x.l)
         self.post_order(x.r)
-        print(x.data)
+        print(x.data,end=' ')
 
+if __name__ == '__main__':
+    my_bst=BST()
+    my_bst.insert(12)
+    my_bst.insert(1)
+    my_bst.insert(5)
+    my_bst.insert(-9)
+    my_bst.insert(3)
+    my_bst.insert(31)
+    my_bst.insert(1.8)
+    my_bst.insert(29)
+    my_bst.insert(33)
+    my_bst.insert(30)
+    my_bst.in_order(my_bst.root)
+    print()
+    my_bst.post_order(my_bst.root)
+    print()
+    my_bst.pre_order(my_bst.root)
+    print()
     
